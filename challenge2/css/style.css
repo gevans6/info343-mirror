@@ -1,0 +1,24 @@
+header{
+    height: 400px;
+    background-image: url("../img/header.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    padding-top: 150px;
+}
+
+header p{
+    width: 50%;
+}
+
+.get-yours-link{
+    display: inline-block;
+    background-color: brown;
+    color:  white;
+    padding: 4px;
+    border: 1px solid black;
+}
+
+.get-yours-link:hover{
+    color: white;
+}
