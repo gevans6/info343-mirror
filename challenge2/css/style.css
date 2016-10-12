@@ -11,6 +11,10 @@ header p{
     width: 50%;
 }
 
+h1, h2, h3 {
+    margin-top: 0px;
+}
+
 .get-yours-link{
     display: inline-block;
     background-color: brown;
@@ -21,4 +25,53 @@ header p{
 
 .get-yours-link:hover{
     color: white;
+}
+
+.get-yours-link-mobile{
+    display: none;
+}
+
+@media (max-width: 992px){
+    header{
+        background-image: linear-gradient(to bottom, #391D18, #814236);
+        padding-top: 25px;
+        padding-bottom: 25px;
+        height: auto;
+        color: white;
+    }
+
+    .get-yours-link{
+        display: none;
+    }
+
+    .get-yours-link-mobile{
+        display: block;
+        color: white;
+        float: right;
+    }
+
+    header p{
+        width: auto;
+    }
+}
+
+.features-section {
+    padding: 15px 0px;
+    background-color: #F8F8F8;
+}
+
+.features-section h2 {
+    text-align: center;
+}
+
+.feature{
+    height: 300px;
+    background-color: red;
+    text-align: center;
+    border-radius: 3px;
+    padding: 10px;
+}
+
+.feature svg{
+    height: 50px;
 }
