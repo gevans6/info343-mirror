@@ -54,6 +54,30 @@ p{
     margin-right: 3px;
 }
 
+
+.footer-img{
+    color: #AAAAAA;
+    text-decoration: none;
+}
+
+
+.footer-img:hover{
+    color: #AAAAAA;
+    text-decoration: none;
+}
+
+
+.bottom-footer a{
+    text-decoration: none;
+    color: #AAAAAA;
+}
+
+.bottom-footer a:hover{
+    text-decoration: none;
+    color: #AAAAAA;
+}
+
+
 @media (max-width: 992px){
     header{
         background-image: linear-gradient(to bottom, #391D18, #814236);
@@ -87,6 +111,15 @@ p{
     background-color: #EBEBEB;
 }
 
+.testimonials-section{
+    background-color: #F8F8F8;
+}
+
+.footer{
+    background-color: #391D18;
+    color: #EEEEEE;
+}
+
 .features-section h2{
     text-align: center;
     font-variant: small-caps;
@@ -97,16 +130,16 @@ p{
     font-variant: small-caps;
 }
 
+.testimonials-section h2{
+    text-align: center;
+    font-variant: small-caps;
+}
+
 .img-responsive{
     height: 150px;
     width: 100%;
     overflow: hidden;
     display: block;
-}
-
-.row{
-    margin-right: 100px;
-    margin-left: 100px;
 }
 
 .feature{
@@ -134,6 +167,19 @@ p{
     fill: #814236;
 }
 
+.title{
+    font-size: 0.8em;
+    color: #999999;
+}
+
+.testimonial img{
+        float: left;
+}
+
+.testimonial p{
+    overflow: auto;
+}
+
 @media (max-width: 768px) {
     .feature {
         text-align: left;
@@ -155,5 +201,9 @@ p{
 
     .use img{
         vertical-align: top;
+    }
+
+    .footer i{
+        float: right;
     }
 }
