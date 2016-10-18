@@ -54,30 +54,6 @@ p{
     margin-right: 3px;
 }
 
-
-.footer-img{
-    color: #AAAAAA;
-    text-decoration: none;
-}
-
-
-.footer-img:hover{
-    color: #AAAAAA;
-    text-decoration: none;
-}
-
-
-.bottom-footer a{
-    text-decoration: none;
-    color: #AAAAAA;
-}
-
-.bottom-footer a:hover{
-    text-decoration: none;
-    color: #AAAAAA;
-}
-
-
 @media (max-width: 992px){
     header{
         background-image: linear-gradient(to bottom, #391D18, #814236);
@@ -107,41 +83,6 @@ p{
     background-color: #F8F8F8;
 }
 
-.uses-section{
-    background-color: #EBEBEB;
-}
-
-.testimonials-section{
-    background-color: #F8F8F8;
-}
-
-.footer{
-    background-color: #391D18;
-    color: #EEEEEE;
-}
-
-.features-section h2{
-    text-align: center;
-    font-variant: small-caps;
-}
-
-.uses-section h2{
-    text-align: center;
-    font-variant: small-caps;
-}
-
-.testimonials-section h2{
-    text-align: center;
-    font-variant: small-caps;
-}
-
-.img-responsive{
-    height: 150px;
-    width: 100%;
-    overflow: hidden;
-    display: block;
-}
-
 .feature{
     height: 300px;
     background-color: white;
@@ -150,6 +91,24 @@ p{
     border: 1px solid #DFDFDF;
     border-radius: 3px;
     margin-bottom: 10px;
+}
+
+.features-section h2{
+    text-align: center;
+    font-variant: small-caps;
+}
+
+
+.feature svg{
+    height: 50px;
+    fill: #814236;
+}
+
+.img-responsive{
+    height: 150px;
+    width: 100%;
+    overflow: hidden;
+    display: block;
 }
 
 .use{
@@ -162,9 +121,22 @@ p{
     margin-bottom: 10px;
 }
 
-.feature svg{
-    height: 50px;
-    fill: #814236;
+.uses-section{
+    background-color: #EBEBEB;
+}
+
+.uses-section h2{
+    text-align: center;
+    font-variant: small-caps;
+}
+
+.testimonials-section{
+    background-color: #F8F8F8;
+}
+
+.testimonials-section h2{
+    text-align: center;
+    font-variant: small-caps;
 }
 
 .title{
@@ -178,6 +150,33 @@ p{
 
 .testimonial p{
     overflow: auto;
+}
+
+.footer{
+    background-color: #391D18;
+    color: #EEEEEE;
+}
+
+.footer-img{
+    color: #AAAAAA;
+    text-decoration: none;
+}
+
+
+.footer-img:hover{
+    color: #AAAAAA;
+    text-decoration: none;
+}
+
+
+.bottom-footer a{
+    text-decoration: none;
+    color: #AAAAAA;
+}
+
+.bottom-footer a:hover{
+    text-decoration: none;
+    color: #AAAAAA;
 }
 
 @media (max-width: 768px) {
