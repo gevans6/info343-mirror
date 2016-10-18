@@ -11,7 +11,7 @@ header{
     background-repeat: no-repeat;
     background-position: center bottom;
     padding-top: 150px;
-    
+    padding-bottom: 25px;
 }
 
 .sub-heading{
@@ -81,7 +81,10 @@ p{
 .features-section{
     padding: 15px 0px;
     background-color: #F8F8F8;
-    
+}
+
+.uses-section{
+    background-color: #EBEBEB;
 }
 
 .features-section h2{
@@ -89,10 +92,37 @@ p{
     font-variant: small-caps;
 }
 
+.uses-section h2{
+    text-align: center;
+    font-variant: small-caps;
+}
+
+.img-responsive{
+    height: 150px;
+    width: 100%;
+    overflow: hidden;
+    display: block;
+}
+
+.row{
+    margin-right: 100px;
+    margin-left: 100px;
+}
+
 .feature{
     height: 300px;
     background-color: white;
     text-align: center;
+    padding: 10px;
+    border: 1px solid #DFDFDF;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+.use{
+    height: 300px;
+    background-color: white;
+    text-align: left;
     padding: 10px;
     border: 1px solid #DFDFDF;
     border-radius: 3px;
@@ -117,5 +147,13 @@ p{
     .feature-copy {
         padding-left: 60px;
     }
-}
 
+    .use{
+        text-align: left;
+        height: auto;
+    }
+
+    .use img{
+        vertical-align: top;
+    }
+}
