@@ -4,9 +4,10 @@ add your code to this file
 */
 
 // Create variables for important elements (dropdown, table)
-var dropdown = document.querySelector("#dropdown");
+var dropdown = document.querySelector("#report-select");
 var table = document.querySelector(".table");
 
+var modMOVIES = MOVIES;
 
 // Build the filtered lists of names.
 // Array.filter allows you to take an array of items
@@ -18,6 +19,12 @@ var table = document.querySelector(".table");
 var starWars = MOVIES.filter(function (item) {
     return item.title.toLowerCase().includes("star wars");
 });
+
+starWars.sort(function(a, b) {
+    return a.title.localeCompare(b.title);
+});
+
+//console.log(starWars);
 
 var twenty = MOVIES.filter(function (item) {
     return item.released.toLowerCase() === "female";
