@@ -12,7 +12,7 @@ add your code to this file
         //make sure js loads
         console.log("doc ready");
         //check global var
-        console.log(MOVIES);
+        //console.log(MOVIES);
 
         var dropdown = document.querySelector("#report-select");
         dropdown.addEventListener("change", function (e) {
@@ -156,8 +156,6 @@ add your code to this file
                 genreCount[genre] = 1;
             }
         });
-        console.log(genreCount);
-        console.log(genreSales);
         var genres = Object.keys(genreCount);
         genres.forEach(function (genre){
             var sales = genreSales[genre];
@@ -182,44 +180,41 @@ add your code to this file
         
     var top100 = function() {
         var titleTickets = [];
-        var titleFinal = {};
         var ticketCount = {};
         MOVIES.forEach(function (movie){
-            var title = movie.title;
+            var title = movie.title + " (" + movie.released.substring(0, 4) + ")";
             var tickets = movie.tickets;
-
-            var currentTitle = titleFinal[title];
             var currentTicket = ticketCount[title];
 
             if(currentTicket){
                 ticketCount[title] += tickets;
             } else {
                 ticketCount[title] = tickets;
-            }if(currentTitle){
-                titleFinal[title] = currentTitle[title];
-            }else {
-                titleFinal[title] = title;
             }
-
         });
-        console.log(titleFinal);
-        console.log(ticketCount);
 
-        var titles = Object.keys(titleFinal)
-        titles.forEach(function (title){
-            var movieTitle = titleFinal[title];
-            var ticketSum = ticketCount[title];
-            // titleTickets.push({
-                
-            //     Title: ticketCount[title],
-            //     "Tickets Sold": ticketCount[title]
-            // });
+        var titles = Object.keys(ticketCount)
+        
+        titles.forEach(function (title) {
+            var ticketSum = ticketCount
+            titleTickets.push({
+                Title: title,
+                "Tickets Sold": ticketSum[title]
+            });
         });
         
-        return titles;
+        titleTickets.sort(function (a, b){
+            return b["Tickets Sold"] - a["Tickets Sold"];
+        })
+        
+        titleTickets.forEach(function (title){
+            title["Tickets Sold"] = numeral(title["Tickets Sold"]).format('0,0')
+        });
+
+        var top100TitleTickets = titleTickets.slice(0, 100);
+
+        return top100TitleTickets;
     }
-   //isolate just title, and tickets
-   //sum of all tickets per title
-   //top 100 sums of tickets
+
 
 })();
