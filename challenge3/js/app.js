@@ -58,16 +58,16 @@
         Object.keys(records[0]).forEach(function(column){
             columns.push(column);
             var th = document.createElement("th");
-            var alignment;
+            var className;
 
             if (column.toLowerCase().includes("sales")){
-                alignment = "text-align: right";
+                className = "text-right";
             }else if (column.toLowerCase().includes("tickets")){
-                alignment = "text-align: right";
-            } else alignment = "";
+                className = "text-right";
+            } else className = "";
 
             th.textContent = toTitleCase(column);
-            th.style = alignment;
+            th.className = className;
 
             tr.appendChild(th);
         });
@@ -80,22 +80,26 @@
             columns.forEach(function(column) {
                 var td = document.createElement("td");
                 var value = record[column];
-                var alignment;
+                var className;
 
                 if(column.includes("released")){
                     value = moment(value).format('L');
                 }else if (column.includes("sales")){    
                     value = numeral(value).format('$0,0');
-                    alignment = "text-align: right";
+                    className = "text-right";
                 }else if (column.includes("tickets")){    
                     value = numeral(value).format('0,0');
-                    alignment = "text-align: right";
+                    className = "text-right";
+                }else if (column.toLowerCase().includes("sales")){
+                    className = "text-right";
+                } else if (column.toLowerCase().includes("tickets")){
+                    className = "text-right";
                 }else {
-                    alignment = "";
+                    className = "";
                 }
 
                 td.textContent = value;
-                td.style = alignment;
+                td.className = className;
 
                 tr.appendChild(td);
             });
