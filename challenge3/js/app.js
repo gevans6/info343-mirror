@@ -3,267 +3,81 @@ app.js - application script for the movies challenge
 add your code to this file
 */
 
-// Create variables for important elements (dropdown, table)
-var dropdown = document.querySelector("#report-select");
-var table = document.querySelector(".table");
-
-var starWarsB = false;
-var twentyB = false;
-var avgSalesB = false;
-var top100B = false;
-
-// Build the filtered lists of names.
-// Array.filter allows you to take an array of items
-// and create a new array with just the values
-// that match a certain condition. In this case,
-// we want to build two lists, one for each gender.
-// When comparing strings, always a good idea to
-// set both strings to the same case (unless capitalization is important).
-var starWars = MOVIES.filter(function (item) {
-    return item.title.toLowerCase().includes("star wars");
-});
-
-starWars.sort(function(a, b) {
-    return a.title.localeCompare(b.title);
-});
 
 
-
-//console.log(starWars);
-
-var twenty = MOVIES.filter(function (item) {
-    return item.released < 2000-01-01;
-});
-
-var avgSales = MOVIES.reduce(function (previousValue, currentValue){
-    return previousValue.sales + currentValue.sales;
-});
-
-var top100 = MOVIES
-
-
-
-
-
-function buildTable() {
-    // table body and table head
-    var tbody = document.createElement("tbody");
-    var thead = document.createElement("thead");
-
-    var h2 = document.createElement("h2");
-
-
-    // Row for the header
-    var threadRow = document.createElement("tr");
-
-    // Columns for the header
-    var titleTh = document.createElement("th");
-    titleTh.textContent = "Title";
-
-    var releasedTh = document.createElement("th");
-    releasedTh.textContent = "Date Released";
-
-    var distributorTh = document.createElement("th");
-    distributorTh.textContent = "Distributor";
-
-    var genreTh = document.createElement("th");
-    genreTh.textContent = "Genre";
-
-    var ratingTh = document.createElement("th");
-    ratingTh.textContent = "Rating";
-
-    var yearTh = document.createElement("th");
-    yearTh.textContent = "Year";
-
-    var salesTh = document.createElement("th");
-    salesTh.textContent = "Sales";
-
-    var ticketsTh = document.createElement("th");
-    ticketsTh.textContent = "Tickets";
-
-    // Append these elements to the table
-    threadRow.appendChild(titleTh);
-    threadRow.appendChild(releasedTh);
-    threadRow.appendChild(distributorTh);
-    threadRow.appendChild(genreTh);
-    threadRow.appendChild(ratingTh);
-    threadRow.appendChild(yearTh);
-    threadRow.appendChild(salesTh);
-    threadRow.appendChild(ticketsTh);
-
-    thead.appendChild(threadRow);
-    table.appendChild(tbody);
-    table.appendChild(thead);
-
-    report.appendChild(table);
-}
-
-function buildTableSales() {
-    // table body and table head
-    var tbody = document.createElement("tbody");
-    var thead = document.createElement("thead");
-
-    // Row for the header
-    var threadRow = document.createElement("tr");
-
-    // Columns for the header
-    
-    var genreTh = document.createElement("th");
-    genreTh.textContent = "Genre";
-
-    var salesTh = document.createElement("th");
-    salesTh.textContent = "Sales";
-
-    // Append these elements to the table
-    threadRow.appendChild(genreTh);
-    threadRow.appendChild(salesTh);
-
-    thead.appendChild(threadRow);
-    table.appendChild(tbody);
-    table.appendChild(thead);
-
-    report.appendChild(table);
-
-}
-
-function buildTableTop() {
-    // table body and table head
-    var tbody = document.createElement("tbody");
-    var thead = document.createElement("thead");
-
-    // Row for the header
-    var threadRow = document.createElement("tr");
-
-    // Columns for the header
-    
-    var titleTh = document.createElement("th");
-    titleTh.textContent = "Title";
-
-    var ticketsTh = document.createElement("th");
-    ticketsTh.textContent = "Ticket Sales";
-
-    // Append these elements to the table
-    threadRow.appendChild(titleTh);
-    threadRow.appendChild(ticketsTh);
-
-    thead.appendChild(threadRow);
-    table.appendChild(tbody);
-    table.appendChild(thead);
-
-}
-
-function buildRows(rows) {
-    console.log(rows);
-
-    table.innerHTML = "";
-
-    if (avgSalesB){
-        buildTableSales();
-    }else if (top100B){
-        buildTableTop();
-    } else {
-        buildTable();
-    }
-
-    var tbody = document.querySelector("tbody");
-
-    
-
-    rows.forEach(function (title) { //titles
-        var titleTr = document.createElement("tr");
+(function() {
+    var titleReport;
+    document.addEventListener("DOMContentLoaded", function() {
         
-        
+        //make sure js loads
+        console.log("doc ready");
+        //check global var
+        console.log(MOVIES);
 
-        // Object.keys returns an array of the keys object
-        var titleKeys = Object.keys(title);
+        var dropdown = document.querySelector("#report-select");
+        dropdown.addEventListener("change", function (e) {
+            // Removes all the elements in the table.
+            report.innerHTML = "";
 
-        // This makes it easy to iterate over the values
-        // in the object by using bracket notation
-        // to access each property in the object.
-        titleKeys.forEach(function (key) {
-            var value = title[key];
+            // Get the current value of the dropdown,
+            // and build the table with the data for that value.
+            var dropValue = e.target.value;
 
-            var td = document.createElement("td");
-            td.textContent = value;
+            var finalReport;
             
 
-            titleTr.appendChild(td);
+            if (dropValue === "star-wars") {    
+                finalReport = starWars();
+                titleReport = "Star Wars Movies";
+            } else if (dropValue == "20th") {
+                finalReport = twenty();
+                titleReport = "20th Century Movies";
+            } else if (dropValue == "avg-by-genre") {
+                finalReport = avgSales();
+                titleReport = "Average Movie Sales By Genre";
+            } else if (dropValue === "top-by-tickets") {
+                finalReport = top100();
+                titleReport = "Top 100 Movies";
+            }
 
+            buildTable(finalReport);
         });
 
-        tbody.appendChild(titleTr);
+        // TESTER code
+        //buildTable(MOVIES.slice(0, 20));
     });
-}
 
-// When the selection in the dropdown changes,
-// we want to clear and rebuild the table
-// based on the selected gender.
-dropdown.addEventListener("change", function (e) {
-    // Removes all the elements in the table.
-    table.innerHTML = "";
+    var report = document.querySelector("#report");
 
-    // Get the current value of the dropdown,
-    // and build the table with the data for that value.
-    var value = e.target.value;
+    var buildTable = function(records) {
+        //console.log(Object.keys(records[0]));
 
-    if (value === "star-wars") {
-        starWarsB = true;
-        twentyB = false;
-        avgSalesB = false;
-        top100B = false;
-        //buildRows(starWars);
-        buildTable2(starWars);
-    }else if (value === "20th"){
-        starWarsB = false;
-        twentyB = true;
-        avgSalesB = false;
-        top100B = false;
-        buildRows(twenty);
-    } else if (value === "avg-by-genre"){
-        starWarsB = false;
-        twentyB = false;
-        avgSalesB = true;
-        top100B = false;
-        buildRows(avgSales);
-    } else if (value === "top-by-tikets"){
-        starWarsB = false;
-        twentyB = false;
-        avgSalesB = false;
-        top100B = true;
-        buildRows(top100);
-    }else {
-        buildRows(MOVIES);
-    }
-});
+        report.innerHTML = "";
 
-buildRows(MOVIES);
+        // Make and add Header
+        var h2 = document.createElement("h2");
+        h2.textContent = titleReport;
 
-
-document.addEventListener("DOMContentLoaded", function() {
-    //make sure js loads
-    console.log("doc ready");
-    //check global var
-    console.log(MOVIES);
-
-    var table = document.querySelector(".table");
-
-    var buildTable2 = function(records) {
-        console.log(records);
-
-        table.innerHTML = "";
+        var table = document.createElement("table");
+        table.className = "table";
 
         var tbody = document.createElement("tbody");
         var thead = document.createElement("thead");
 
-        var columns = [] // fill with column names from records[0]
+        var columns = []; // fill with column names from records[0]
 
-        var th = document.createElement("th");
-        //for each column make a td and append it to the th
+        var tr = document.createElement("tr");
+        //for each column make a th and append it to the tr
 
-        Object.keys(records).forEach(function(column){
-            var td = document.createElement("td");
-            th.AppendChild(td);
-        })
+        Object.keys(records[0]).forEach(function(column){
+            columns.push(column);
+            var th = document.createElement("th");
+
+            th.textContent = column;
+            tr.appendChild(th);
+        });
+
+        thead.appendChild(tr);
 
         records.forEach(function(record) {
             // make a tr
@@ -274,22 +88,138 @@ document.addEventListener("DOMContentLoaded", function() {
                 var td = document.createElement("td");
 
                 var value = record[column];
-                td.textContent(value);
 
-                tr.AppendChild(td);
+                if(column.includes("released")){
+                    value = moment(value).format('L');
+                }else if (column.includes("sales")){    
+                    value = numeral(value).format('$0,0');
+                }else if (column.includes("tickets")){    
+                    value = numeral(value).format('0,0');
+                }
+                td.textContent = value;
 
+                tr.appendChild(td);
             });
 
             // append tr to tbody;
-            tbody.AppendChild(tr);
+            tbody.appendChild(tr);
         })
 
         //append thead and tbody to table;
         table.appendChild(thead);
         table.appendChild(tbody);
+
+        report.appendChild(h2);
+        report.appendChild(table);
     }
 
+    var starWars = function(){
+        return MOVIES.filter(function (item) {
+            return item.title.toLowerCase().includes("star wars");
+        }).sort(function(a, b) {
+            return a.title.toLowerCase().localeCompare(b.title);
+        });
+    }
 
-    // TESTER code
-    buildTable(MOVIES.slice(0, 20));
-});
+    var twenty = function() {
+        return MOVIES.filter(function (item) {
+            return Date.parse(item.released) < Date.parse("2000-01-01T00:00:00Z");
+        }).sort(function (a, b) { 
+            var releasedDiff = moment(a.released).diff(b.released)
+            if (releasedDiff === 0){
+                return a.year - b.year
+            }
+            return releasedDiff;
+        });
+    }
+
+    var avgSales = function() {
+        var genreAvg = [];
+        var genreCount = {};
+        var genreSales = {};
+        MOVIES.forEach(function(movie){
+            var sales = movie.sales;
+            var genre = movie.genre;
+            if (genre === ""){
+                genre = "N/A";
+            }
+            var currentGenreSales = genreSales[genre];
+            var currentGenreCount = genreCount[genre];
+            if(currentGenreSales) {
+                genreSales[genre] += sales;
+            } else{
+                genreSales[genre] = sales;
+            }
+            if(currentGenreCount) {
+                genreCount[genre] +=  1;
+            } else {
+                genreCount[genre] = 1;
+            }
+        });
+        console.log(genreCount);
+        console.log(genreSales);
+        var genres = Object.keys(genreCount);
+        genres.forEach(function (genre){
+            var sales = genreSales[genre];
+            var count = genreCount[genre];
+            var average = sales/count;
+            genreAvg.push({
+                Genre: genre,
+                "Average Sales": average
+            });
+        });
+       
+        genreAvg.sort(function (a, b){
+            return b["Average Sales"] - a["Average Sales"];
+        });
+
+        genreAvg.forEach(function (genre){
+            genre["Average Sales"] = numeral(genre["Average Sales"]).format('$0,0.00');
+        });
+
+        return genreAvg;
+    }
+        
+    var top100 = function() {
+        var titleTickets = [];
+        var titleFinal = {};
+        var ticketCount = {};
+        MOVIES.forEach(function (movie){
+            var title = movie.title;
+            var tickets = movie.tickets;
+
+            var currentTitle = titleFinal[title];
+            var currentTicket = ticketCount[title];
+
+            if(currentTicket){
+                ticketCount[title] += tickets;
+            } else {
+                ticketCount[title] = tickets;
+            }if(currentTitle){
+                titleFinal[title] = currentTitle[title];
+            }else {
+                titleFinal[title] = title;
+            }
+
+        });
+        console.log(titleFinal);
+        console.log(ticketCount);
+
+        var titles = Object.keys(titleFinal)
+        titles.forEach(function (title){
+            var movieTitle = titleFinal[title];
+            var ticketSum = ticketCount[title];
+            // titleTickets.push({
+                
+            //     Title: ticketCount[title],
+            //     "Tickets Sold": ticketCount[title]
+            // });
+        });
+        
+        return titles;
+    }
+   //isolate just title, and tickets
+   //sum of all tickets per title
+   //top 100 sums of tickets
+
+})();
