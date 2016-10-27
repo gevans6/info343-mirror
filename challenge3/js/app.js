@@ -1,30 +1,20 @@
-/*
-app.js - application script for the movies challenge
-add your code to this file
-*/
-
-
-
+"use strict";
 (function() {
     var titleReport;
+
+    function toTitleCase(str){
+        return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+    }
+    // Found on Stack Overflow by "Dexter" http://stackoverflow.com/questions/4878756/javascript-how-to-capitalize-first-letter-of-each-word-like-a-2-word-city
     document.addEventListener("DOMContentLoaded", function() {
-        
-        //make sure js loads
-        console.log("doc ready");
-        //check global var
-        //console.log(MOVIES);
 
         var dropdown = document.querySelector("#report-select");
         dropdown.addEventListener("change", function (e) {
-            // Removes all the elements in the table.
+
             report.innerHTML = "";
 
-            // Get the current value of the dropdown,
-            // and build the table with the data for that value.
             var dropValue = e.target.value;
-
             var finalReport;
-            
 
             if (dropValue === "star-wars") {    
                 finalReport = starWars();
@@ -43,18 +33,15 @@ add your code to this file
             buildTable(finalReport);
         });
 
-        // TESTER code
-        //buildTable(MOVIES.slice(0, 20));
+        buildTable(MOVIES);
     });
 
     var report = document.querySelector("#report");
 
     var buildTable = function(records) {
-        //console.log(Object.keys(records[0]));
 
         report.innerHTML = "";
 
-        // Make and add Header
         var h2 = document.createElement("h2");
         h2.textContent = titleReport;
 
@@ -64,48 +51,58 @@ add your code to this file
         var tbody = document.createElement("tbody");
         var thead = document.createElement("thead");
 
-        var columns = []; // fill with column names from records[0]
+        var columns = [];
 
         var tr = document.createElement("tr");
-        //for each column make a th and append it to the tr
 
         Object.keys(records[0]).forEach(function(column){
             columns.push(column);
             var th = document.createElement("th");
+            var alignment;
 
-            th.textContent = column;
+            if (column.toLowerCase().includes("sales")){
+                alignment = "text-align: right";
+            }else if (column.toLowerCase().includes("tickets")){
+                alignment = "text-align: right";
+            } else alignment = "";
+
+            th.textContent = toTitleCase(column);
+            th.style = alignment;
+
             tr.appendChild(th);
         });
 
         thead.appendChild(tr);
 
         records.forEach(function(record) {
-            // make a tr
             var tr = document.createElement("tr");
-            columns.forEach(function(column) {
-                // make a td and fill with data from record[column];
-                // append to tr
-                var td = document.createElement("td");
 
+            columns.forEach(function(column) {
+                var td = document.createElement("td");
                 var value = record[column];
+                var alignment;
 
                 if(column.includes("released")){
                     value = moment(value).format('L');
                 }else if (column.includes("sales")){    
                     value = numeral(value).format('$0,0');
+                    alignment = "text-align: right";
                 }else if (column.includes("tickets")){    
                     value = numeral(value).format('0,0');
+                    alignment = "text-align: right";
+                }else {
+                    alignment = "";
                 }
+
                 td.textContent = value;
+                td.style = alignment;
 
                 tr.appendChild(td);
             });
 
-            // append tr to tbody;
             tbody.appendChild(tr);
         })
 
-        //append thead and tbody to table;
         table.appendChild(thead);
         table.appendChild(tbody);
 
@@ -215,6 +212,4 @@ add your code to this file
 
         return top100TitleTickets;
     }
-
-
 })();
