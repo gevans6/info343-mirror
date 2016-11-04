@@ -36,7 +36,8 @@ signupForm.addEventListener("submit", function(e) {
             console.log(user);
 
             // Send verification email
-
+            user.sendEmailVerification();
+        
             // Update their display name and profile picture
             // displayName, photoURL
 
