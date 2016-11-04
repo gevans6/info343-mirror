@@ -1,3 +1,10 @@
 /*
  *  This file should contain your custom style rules.
  */
+.alert {
+    display: none;
+}
+
+.alert.active {
+    display: block;
+}
