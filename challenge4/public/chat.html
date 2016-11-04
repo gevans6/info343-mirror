@@ -8,12 +8,29 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <form id="message-form">
-        <textarea id="message-input" rows="10" placeholder="Enter your message"></textarea>
+    <div class="container">
+        <h1>The EvChatroom!</h1>
 
-        <button type="submit">Submit</button>
-    </form>
+        <div class="row">
+            <div class="col col-sm-6">
+                <button id="logout" type="click" class="btn btn-primary pull-right"  href="#right-panel">Logout</button>
 
+                <li class="form-group">
+                    <form id="messages">
+                        <p id="messages"></p>
+                    </form>
+                </li>
+
+               
+
+                <form id="message-form">
+                    <textarea id="message-input" rows="10" placeholder="Enter your message"></textarea>
+
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>

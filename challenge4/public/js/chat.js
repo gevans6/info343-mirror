@@ -6,6 +6,13 @@
  * 4. Allow a user to log out.
  * 5. Redirect a user to index.html if they are not logged in.
  */
+var messagesList = document.getElementById("messages");
+var logoutButton = document.getElementById("logout");
+
+logoutButton.addEventListener("click", function (e) {
+    firebase.auth().signOut();
+});
+
 firebase.auth().onAuthStateChanged(function(user) {
     if(user) {
         var database = firebase.database();
@@ -24,6 +31,8 @@ firebase.auth().onAuthStateChanged(function(user) {
             messageLi.innerText = text;
 
             messagesList.appendChild(messageLi);
+
+            console.log(messagesLi);
         });
 
         messages.on("child_changed", function(data) {
