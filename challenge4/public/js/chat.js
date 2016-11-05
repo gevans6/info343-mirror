@@ -19,8 +19,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 
         var messages = database.ref("channels/general");
 
-        var displayName = user.displayName;
-
+        
 
         messages.on('child_added', function(data) {
             var id = data.key;
@@ -28,16 +27,19 @@ firebase.auth().onAuthStateChanged(function(user) {
 
             var text = message.text;
             var timestamp = message.timestamp;
+            var displayName = message.displayName;
 
             var messageLi = document.createElement("li");
             messageLi.id = id;
-            messageLi.innerText = text;
+            messageLi.innerText = displayName.concat(": ", text);
 
             
             
             messagesList.appendChild(messageLi);
 
             console.log(displayName);
+            console.log(photoURL);
+
         });
 
         messages.on("child_changed", function(data) {
@@ -65,10 +67,12 @@ messageForm.addEventListener("submit", function(e) {
 
     var database = firebase.database();
     var messages = database.ref("channels/general");
+    var user = firebase.auth().currentUser;
 
     var message = messageInput.value;
 
     messages.push({
+        displayName: user.displayName,
         text: message,
         timestamp: new Date().getTime()
     })
