@@ -17,12 +17,13 @@ signupForm.addEventListener("submit", function(e) {
 
     signupError.classList.remove("active");
 
-    var displayName = signupName.value;
+    var displayNameVar = signupName.value;
     var email = signupEmail.value;
     var password = signupPassword.value;
     var passwordConfirm = signupPasswordConfirm.value;
+    var photoURLVar = "https://www.gravatar.com/avatar/" + md5(email);
 
-    console.log(displayName);
+    console.log(displayNameVar);
     console.log(email);
     console.log(password);
     console.log(passwordConfirm);
@@ -40,6 +41,14 @@ signupForm.addEventListener("submit", function(e) {
         
             // Update their display name and profile picture
             // displayName, photoURL
+            user.updateProfile({
+                displayName: displayNameVar,
+                photoURL: photoURLVar
+            }).then(function() {
+            // Update successful.
+            }, function(error) {
+            // An error happened.
+            });
 
             // Redirect to  chat page
             window.location.href = "chat.html";

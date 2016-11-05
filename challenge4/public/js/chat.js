@@ -17,9 +17,12 @@ firebase.auth().onAuthStateChanged(function(user) {
     if(user) {
         var database = firebase.database();
 
-        var messages = database.ref("channnels/general");
+        var messages = database.ref("channels/general");
 
-        messages.on("child_added", function(data) {
+        var displayName = user.displayName;
+
+
+        messages.on('child_added', function(data) {
             var id = data.key;
             var message = data.val();
 
@@ -30,9 +33,11 @@ firebase.auth().onAuthStateChanged(function(user) {
             messageLi.id = id;
             messageLi.innerText = text;
 
+            
+            
             messagesList.appendChild(messageLi);
 
-            console.log(messagesLi);
+            console.log(displayName);
         });
 
         messages.on("child_changed", function(data) {
