@@ -68,9 +68,11 @@ messageForm.addEventListener("submit", function(e) {
         timestamp: new Date().getTime()
     })
     .then(function() {
-
+        document.getElementById("message-input").value = "";
     })
     .catch(function(error) {
 
     });
 });
+
+
