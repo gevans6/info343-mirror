@@ -15,45 +15,66 @@ logoutButton.addEventListener("click", function (e) {
 
 firebase.auth().onAuthStateChanged(function(user) {
     if(user) {
-        var database = firebase.database();
+        if(user.emailVerified) {
+            var database = firebase.database();
 
-        var messages = database.ref("channels/general");
+            var messages = database.ref("channels/general");
 
         
 
-        messages.on('child_added', function(data) {
+            messages.on('child_added', function(data) {
             var id = data.key;
             var message = data.val();
 
-            var text = message.text;
+            
             var timestamp = message.timestamp;
-            var displayName = message.displayName;
+            //var displayName = message.displayName;
+            //var photoURL = message.photoURL;
+
+            var img = document.createElement("img");
+            img.src = message.photoURL;
+
+            var nameHeader = document.createElement("h4");
+            nameHeader.innerText = message.displayName;
+
+            var messageContent = document.createElement("p");
+            messageContent.innerText = message.text;
 
             var messageLi = document.createElement("li");
+            
             messageLi.id = id;
-            messageLi.innerText = displayName.concat(": ", text);
+            messageLi.className = "list-group-item";
+            messageLi.appendChild(nameHeader);
+            messageLi.appendChild(messageContent);    
+            messageLi.appendChild(img);
+            
+            
+            //messageLi.className = "";
 
             
             
             messagesList.appendChild(messageLi);
 
-            console.log(displayName);
-            console.log(photoURL);
+            
 
-        });
+            });
 
-        messages.on("child_changed", function(data) {
-            var id = data.key;
-            var message = data.val();
+            messages.on("child_changed", function(data) {
+                var id = data.key;
+                var message = data.val();
 
-            console.log(message.text);
-        });
+                console.log(message.text);
+            });
 
-        messages.on("child_removed", function(data) {
-            var id = data.key;
+            messages.on("child_removed", function(data) {
+                var id = data.key;
 
-            console.log(id);
-        })
+                console.log(id);
+            });
+        }else {
+            console.log("email not verified");
+        }
+        
     }else {
         window.location.href = "index.html";
     }
@@ -73,6 +94,7 @@ messageForm.addEventListener("submit", function(e) {
 
     messages.push({
         displayName: user.displayName,
+        photoURL: user.photoURL,
         text: message,
         timestamp: new Date().getTime()
     })
