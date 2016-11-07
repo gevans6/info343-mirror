@@ -13,8 +13,7 @@
     float: left;
 }
 
-.list-group-item
-{
+.list-group-item {
   overflow:hidden;  
   position: relative;
   display: block;
@@ -22,4 +21,14 @@
   margin-bottom: -1px;
   background-color: #fff;
   border: 1px solid #ddd;
+}
+
+#original-post {
+    position: relative;
+}
+
+
+
+.hide {
+    display: none;
 }
