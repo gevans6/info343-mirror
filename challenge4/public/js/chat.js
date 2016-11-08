@@ -23,93 +23,105 @@ firebase.auth().onAuthStateChanged(function(user) {
         
 
             messages.on('child_added', function(data) {
-            var id = data.key;
-            var message = data.val();
+                var id = data.key;
+                var message = data.val();
 
-            var timestamp = message.timestamp;
+                var timestamp = message.timestamp;
 
-            var img = document.createElement("img");
-            img.src = message.photoURL;
+                var img = document.createElement("img");
+                img.src = message.photoURL;
 
-            var nameHeader = document.createElement("h4");
-            nameHeader.innerText = message.displayName;
+                var nameHeader = document.createElement("h4");
+                nameHeader.innerText = message.displayName;
 
-            var messageContent = document.createElement("p");
-            messageContent.id = "post"
-            messageContent.innerText = message.text;
+                var messageContent = document.createElement("p");
+                messageContent.id = (id +"post");
+                messageContent.innerText = message.text;
 
-            var editButton = document.createElement("button");
-            editButton.id = "edit-button";
-            editButton.className = "btn btn-link";
-            editButton.innerText = "Edit";
-            editButton.type = "click";
+                var editButton = document.createElement("button");
+                editButton.id = "edit-button";
+                editButton.className = "btn btn-link";
+                editButton.innerText = "Edit";
+                editButton.type = "click";
+                
+                var removeButton = document.createElement("button");
+                removeButton.id = "remove-button";
+                removeButton.className = "btn btn-link";
+                removeButton.innerText = "Delete";
+                
+                var editTextArea = document.createElement("textarea");
+                editTextArea.id = "edit-box";
+                editTextArea.rows = "10";
+                editTextArea.innerText = messageContent.innerText;
+                editTextArea.classList.add("hide");
+
+                var editConfirmButton = document.createElement("button");
+                editConfirmButton.id = "edit-confirm";
+                editConfirmButton.className = "btn btn-primary";
+                editConfirmButton.innerText = "Confirm Edit";
+                editConfirmButton.type = "click";
+                editConfirmButton.classList.add("hide");
+
+                var editCancelButton = document.createElement("button");
+                editCancelButton.id = "edit-cancel";
+                editCancelButton.className = "btn btn-default";
+                editCancelButton.innerText = "Cancel";
+                editCancelButton.classList.add("hide");
+
+
+                var messageLi = document.createElement("li");
+                
+                messageLi.id = id;
+                messageLi.className = "list-group-item";
+                messageLi.appendChild(nameHeader);
+                messageLi.appendChild(messageContent);    
+                messageLi.appendChild(img);
             
-            var removeButton = document.createElement("button");
-            removeButton.id = "remove-button";
-            removeButton.className = "btn btn-link";
-            removeButton.innerText = "Delete";
-            
-            var editTextArea = document.createElement("textarea");
-            editTextArea.id = "edit-box";
-            editTextArea.rows = "10";
-            editTextArea.innerText = messageContent.innerText;
-            editTextArea.classList.add("hide");
+                messageLi.appendChild(editButton);
+                messageLi.appendChild(removeButton);
+                messageLi.appendChild(editTextArea);
+                messageLi.appendChild(editConfirmButton);
+                messageLi.appendChild(editCancelButton);
+                
 
-            var editConfirmButton = document.createElement("button");
-            editConfirmButton.id = "edit-confirm";
-            editConfirmButton.className = "btn btn-primary";
-            editConfirmButton.innerText = "Confirm Edit";
-            editConfirmButton.type = "click";
-            editConfirmButton.classList.add("hide");
-
-            var editCancelButton = document.createElement("button");
-            editCancelButton.id = "edit-cancel";
-            editCancelButton.className = "btn btn-default";
-            editCancelButton.innerText = "Cancel";
-            editCancelButton.classList.add("hide");
-
-
-            var messageLi = document.createElement("li");
-            
-            messageLi.id = id;
-            messageLi.className = "list-group-item";
-            messageLi.appendChild(nameHeader);
-            messageLi.appendChild(messageContent);    
-            messageLi.appendChild(img);
-        
-            messageLi.appendChild(editButton);
-            messageLi.appendChild(removeButton);
-            messageLi.appendChild(editTextArea);
-            messageLi.appendChild(editConfirmButton);
-            messageLi.appendChild(editCancelButton);
-            
-
-            
-            editButton.addEventListener("click", function(e) {
-                editTextArea.value = message.text;
-                editTextArea.classList.toggle("hide");
-                editConfirmButton.classList.toggle("hide");
-                editCancelButton.classList.toggle("hide");
-            });
-
-            editConfirmButton.addEventListener("click", function(e){
-                // change ref of the text for the message
-                node = database.ref("channels/general/" + id);
-                node.set({
-                    displayName: user.displayName,
-                    photoURL: user.photoURL,
-                    text: editTextArea.value,
-                    timestamp: new Date().getTime()
+                
+                editButton.addEventListener("click", function(e) {
+                    editTextArea.value = document.getElementById(id + "post").textContent;
+                    console.log(editTextArea.value);
+                    console.log(message.text);
+                    editTextArea.classList.toggle("hide");
+                    editConfirmButton.classList.toggle("hide");
+                    editCancelButton.classList.toggle("hide");
                 });
-                messageContent.value = message.text;
-                editTextArea.classList.toggle("hide");
-                editConfirmButton.classList.toggle("hide");
-                editCancelButton.classList.toggle("hide");
-            })
 
-            messagesList.appendChild(messageLi);
+                editConfirmButton.addEventListener("click", function(e) {
+                    // change ref of the text for the message
+                    node = database.ref("channels/general/" + id);
+                    node.set({
+                        displayName: user.displayName,
+                        photoURL: user.photoURL,
+                        text: editTextArea.value,
+                        timestamp: new Date().getTime()
+                    });
 
-               
+                    editTextArea.value = document.getElementById(id + "post").textContent;
+                    editTextArea.classList.toggle("hide");
+                    editConfirmButton.classList.toggle("hide");
+                    editCancelButton.classList.toggle("hide");
+                });
+
+                editCancelButton.addEventListener("click", function(e) {
+                    editTextArea.classList.toggle("hide");
+                    editConfirmButton.classList.toggle("hide");
+                    editCancelButton.classList.toggle("hide");
+                });
+
+                removeButton.addEventListener("click", function(e) {
+                    node = database.ref("channels/general/" + id);
+                    node.remove();
+                });
+
+                messagesList.appendChild(messageLi);
 
             });
 
@@ -117,18 +129,14 @@ firebase.auth().onAuthStateChanged(function(user) {
                 var id = data.key;
                 var message = data.val();
 
-                document.getElementById("post").innerHTML = message.text;
-
-                //newPost.innerText = message.text;
-
-
-                
+                document.getElementById(id + "post").innerHTML = message.text;      
             });
 
             messages.on("child_removed", function(data) {
                 var id = data.key;
 
-                console.log(id);
+                var removeNode = document.getElementById(id);
+                removeNode.parentNode.removeChild(removeNode);
             });
         }else {
             console.log("email not verified");
