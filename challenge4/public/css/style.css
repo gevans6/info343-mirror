@@ -9,7 +9,7 @@
     display: block;
 }
 
-#messages img{
+#messages img {
     float: left;
 }
 
@@ -23,12 +23,48 @@
   border: 1px solid #ddd;
 }
 
-#original-post {
+#messages p {
     position: relative;
+    left: 15px;
+    max-width: 420px;
 }
 
+#messages h4 {
+    position: relative;
+    left: 15px;
+    top: -12px;
+}
 
+#messages #edit-button.btn.btn-link {
+    position: relative;
+    top: -80px;
+    left: 50px;
+}
+
+#messages #remove-button.btn.btn-link {
+    position: relative;
+    top: -80px;
+    left: 75px;
+}
+
+#messages #edit-box {
+    position: relative;
+    left: -100px;
+}
+
+#messages #edit-confirm.btn.btn-primary {
+    position: relative;
+    left:  -263px;
+    top: 38px;
+}
+
+#messages #edit-cancel.btn.btn-default {
+    position: relative;
+    left: 204px;
+    top: 5px;
+}
 
 .hide {
     display: none;
 }
+

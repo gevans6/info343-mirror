@@ -51,7 +51,7 @@ firebase.auth().onAuthStateChanged(function(user) {
                 
                 var editTextArea = document.createElement("textarea");
                 editTextArea.id = "edit-box";
-                editTextArea.rows = "10";
+                editTextArea.rows = "2";
                 editTextArea.innerText = messageContent.innerText;
                 editTextArea.classList.add("hide");
 
@@ -73,9 +73,10 @@ firebase.auth().onAuthStateChanged(function(user) {
                 
                 messageLi.id = id;
                 messageLi.className = "list-group-item";
+                messageLi.appendChild(img);
                 messageLi.appendChild(nameHeader);
                 messageLi.appendChild(messageContent);    
-                messageLi.appendChild(img);
+                
             
                 messageLi.appendChild(editButton);
                 messageLi.appendChild(removeButton);
@@ -92,6 +93,7 @@ firebase.auth().onAuthStateChanged(function(user) {
                     editTextArea.classList.toggle("hide");
                     editConfirmButton.classList.toggle("hide");
                     editCancelButton.classList.toggle("hide");
+                    messageContent.classList.toggle("hide");
                 });
 
                 editConfirmButton.addEventListener("click", function(e) {
@@ -108,12 +110,14 @@ firebase.auth().onAuthStateChanged(function(user) {
                     editTextArea.classList.toggle("hide");
                     editConfirmButton.classList.toggle("hide");
                     editCancelButton.classList.toggle("hide");
+                    messageContent.classList.toggle("hide");
                 });
 
                 editCancelButton.addEventListener("click", function(e) {
                     editTextArea.classList.toggle("hide");
                     editConfirmButton.classList.toggle("hide");
                     editCancelButton.classList.toggle("hide");
+                    messageContent.classList.toggle("hide");
                 });
 
                 removeButton.addEventListener("click", function(e) {
