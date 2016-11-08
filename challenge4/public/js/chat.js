@@ -26,21 +26,16 @@ firebase.auth().onAuthStateChanged(function(user) {
             var id = data.key;
             var message = data.val();
 
-            
             var timestamp = message.timestamp;
-            //var displayName = message.displayName;
-            //var photoURL = message.photoURL;
 
             var img = document.createElement("img");
             img.src = message.photoURL;
-
-            
 
             var nameHeader = document.createElement("h4");
             nameHeader.innerText = message.displayName;
 
             var messageContent = document.createElement("p");
-            messageContent.id = "original-post"
+            messageContent.id = "post"
             messageContent.innerText = message.text;
 
             var editButton = document.createElement("button");
@@ -64,6 +59,7 @@ firebase.auth().onAuthStateChanged(function(user) {
             editConfirmButton.id = "edit-confirm";
             editConfirmButton.className = "btn btn-primary";
             editConfirmButton.innerText = "Confirm Edit";
+            editConfirmButton.type = "click";
             editConfirmButton.classList.add("hide");
 
             var editCancelButton = document.createElement("button");
@@ -87,21 +83,33 @@ firebase.auth().onAuthStateChanged(function(user) {
             messageLi.appendChild(editConfirmButton);
             messageLi.appendChild(editCancelButton);
             
+
             
             editButton.addEventListener("click", function(e) {
+                editTextArea.value = message.text;
                 editTextArea.classList.toggle("hide");
                 editConfirmButton.classList.toggle("hide");
                 editCancelButton.classList.toggle("hide");
             });
 
-            editConfirmButton.addEventListener("submit", function(e){
-                // change href of the text for the message
+            editConfirmButton.addEventListener("click", function(e){
+                // change ref of the text for the message
+                node = database.ref("channels/general/" + id);
+                node.set({
+                    displayName: user.displayName,
+                    photoURL: user.photoURL,
+                    text: editTextArea.value,
+                    timestamp: new Date().getTime()
+                });
+                messageContent.value = message.text;
                 editTextArea.classList.toggle("hide");
+                editConfirmButton.classList.toggle("hide");
+                editCancelButton.classList.toggle("hide");
             })
 
             messagesList.appendChild(messageLi);
 
-            console.log(user.getToken());          
+               
 
             });
 
@@ -109,7 +117,12 @@ firebase.auth().onAuthStateChanged(function(user) {
                 var id = data.key;
                 var message = data.val();
 
-                console.log(message.text);
+                document.getElementById("post").innerHTML = message.text;
+
+                //newPost.innerText = message.text;
+
+
+                
             });
 
             messages.on("child_removed", function(data) {
