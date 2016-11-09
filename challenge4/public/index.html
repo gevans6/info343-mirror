@@ -8,12 +8,11 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
     <div class="container">
         <h1>Welcome to EvChat!</h1>
 
         <div class="row">
-            <div class="col col-sm-6"> <!--//check to make sure this works from 320-1200px-->
+            <div class="col col-sm-6">
                 <form id="signup-form">
                     <legend>Sign up</legend>
 
@@ -30,12 +29,12 @@
 
                         <li class="form-group">
                             <label for="signup-password" class="control-label">Password: </label>
-                            <input type="text" id="signup-password" class="form-control" placeholder="At least 6 characters" required/>
+                            <input type="password" id="signup-password" class="form-control" placeholder="At least 6 characters" required/>
                         </li>
 
                         <li class="form-group">
                             <label for="signup-password-confirm" class="control-label">Confirm Password: </label>
-                            <input type="text" id="signup-password-confirm" class="form-control" placeholder="Confirm your password" required/>
+                            <input type="password" id="signup-password-confirm" class="form-control" placeholder="Confirm your password" required/>
                         </li>
 
                         <li class="form-group">
@@ -44,7 +43,9 @@
                     </ul>
                 </form>
 
-                <div id="signup-error" class="aler aler-danger" role="aler"></div>
+                <div id="signup-error" class="alert alert-danger" role="alert"></div>
+
+                <div id="firebase-error" class="alert alert-danger" rold="alert"></div>
             </div>
 
             <div class="col col-sm-6">
@@ -59,7 +60,7 @@
 
                         <li class="form-group">
                             <label for="login-password" class="control-label">Password:</label>
-                            <input type"password" id="login-password" class="form-control"/>
+                            <input type="password" id="login-password" class="form-control"/>
                         </li>
 
                         <li class="form-group">
@@ -67,11 +68,12 @@
                         </li>
                     </ul>
                 </form>
+
+                <div id="login-error" class="alert alert-danger" role="alert"></div>
             </div>
         </div>
     </div>
     
-
     <script src="https://unpkg.com/blueimp-md5@2.4.0/js/md5.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
     <script type="text/javascript" src="js/app.js"></script>

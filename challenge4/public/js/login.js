@@ -11,6 +11,8 @@ var signupEmail = document.getElementById("signup-email");
 var signupPassword = document.getElementById("signup-password");
 var signupPasswordConfirm = document.getElementById("signup-password-confirm");
 var signupError = document.getElementById("signup-error");
+var loginError = document.getElementById("login-error");
+var firebaseError = document.getElementById("firebase-error");
 
 signupForm.addEventListener("submit", function(e) {
     e.preventDefault();
@@ -34,8 +36,6 @@ signupForm.addEventListener("submit", function(e) {
     } else {
         firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(function(user) {
-            console.log(user);
-
             // Send verification email
             user.sendEmailVerification();
         
@@ -47,9 +47,9 @@ signupForm.addEventListener("submit", function(e) {
             }).then(function() {
             // Update successful.
             }, function(error) {
-            // An error happened.
+                firebaseError.innerText = "Error connecting with firebase API";
+                firebaseError.classList.add("active");
             });
-
             // Redirect to  chat page
             window.location.href = "chat.html";
         })
@@ -81,7 +81,8 @@ loginForm.addEventListener("submit", function(e) {
         window.location.href = "chat.html"
     })
     .catch(function(error) {
-        console.log(error.message);
+        loginError.textContent = error.message;
+        loginError.classList.add("active");
     });
 });
 
