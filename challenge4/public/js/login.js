@@ -47,6 +47,7 @@ signupForm.addEventListener("submit", function(e) {
             }).then(function() {
             // Update successful.
             }, function(error) {
+                // Error with firebase API
                 firebaseError.innerText = "Error connecting with firebase API";
                 firebaseError.classList.add("active");
             });
