@@ -1,17 +1,12 @@
 class WeatherCurrent extends React.Component {
     render() {
         return (
-            <div>
+            <div className="weatherCurrent">
                 <h2>{this.props.name}</h2>
-                <p>{this.props.temp}</p>
-                <p>{this.props.main}</p>
-                <p>{this.props.description}</p>
-                <p>
-                    <img src= {"http://openweathermap.org/img/w/" + this.props.icon + ".png"} />
-                </p>
+                <h3>{this.props.temp} <img src= {"http://openweathermap.org/img/w/" + this.props.icon + ".png"} /> </h3>
+                <p>{this.props.main} ({this.props.description})</p>
                 
-                <button onClick={(e) => this.save(e)}>Save</button>
-                        
+                <button className="btn btn-secondary" onClick={(e) => this.save(e)}>Save</button> 
             </div>
         )
     }

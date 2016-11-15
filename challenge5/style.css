@@ -1,0 +1,26 @@
+ .alert {
+     display: none;
+     
+ }
+ 
+ .alert.active {
+     display: block;
+     max-width: 200px;
+ }
+
+.container h1 {
+    color: blue;
+    font-family: Impact, sans-serif;
+}
+
+.weatherCurrent h3 {
+    color: darkolivegreen;
+}
+
+.weatherCurrent h3 {
+    color: darkgray;
+}
+
+.list-group-item {
+    max-width: 800px;
+}
