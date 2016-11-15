@@ -101,7 +101,7 @@ class App extends React.Component {
             }
         });
 
-        var url = "http://api.openweathermap.org/data/2.5/weather?q=" + location + "&APPID=" + API_KEY;
+        var url = "https://www.bell-towne.com/api/weather?q=" + location + "&APPID=" + API_KEY;
 
         fetch(url)
         .then((response) => {
