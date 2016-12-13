@@ -3,11 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Chat App (change this title!)</title>
+    <title>EvChatroom!</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <div class="container">
+        <h1>The EvChatroom! 
+            <button id="logout" type="click" class="btn btn-primary pull-right"  href="#right-panel">Logout</button>
+        </h1>
+
+        <div class="row">
+            <div class="col col-md-12">
+                <ul id="messages" class="list-unstyled"></ul>
+
+                <form id="message-form">
+                    <textarea id="message-input" rows="4" cols="50" placeholder="Enter your message"></textarea>
+
+                    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+
+                    <div id="post-error" class="alert alert-danger" role="alert"></div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
