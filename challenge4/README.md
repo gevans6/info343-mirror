@@ -1,2 +1,3 @@
-# in-class
-Any code I write in class will be committed to this repo.
+# Firebase Challenge
+
+Use this directory for the [Firebase challenge](https://canvas.uw.edu/courses/1066610/assignments/3383825).
